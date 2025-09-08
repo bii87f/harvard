@@ -1,131 +1,186 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقع جامعة هارفرد</title>
+  <title>جامعة هارفرد</title>
   <style>
-    body { margin:0; padding:0; font-family: Tahoma,sans-serif; transition: background 0.3s, color 0.3s; }
-    /* صفحة الترحيب */
-    #landing { display:flex; align-items:center; justify-content:center; height:100vh; text-align:center; color:white;
-      background: linear-gradient(270deg,#A51C30,#FFD700,#0066CC,#4CAF50); background-size:800% 800%; animation:gradientMove 15s ease infinite;
+    body {
+      font-family: 'Tahoma', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #333;
+      scroll-behavior: smooth; /* تنقل سلس */
     }
-    @keyframes gradientMove { 0% {background-position:0% 50%;} 50% {background-position:100% 50%;} 100% {background-position:0% 50%;} }
-    .landing-box { background: rgba(0,0,0,0.55); padding:40px; border-radius:20px; box-shadow:0 8px 25px rgba(0,0,0,0.3);}
-    .flags { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
-    .flags a { text-decoration:none; font-size:14px; color:white; font-weight:bold; }
-    .flags img { width:65px; height:45px; border-radius:10px; border:2px solid white; cursor:pointer; transition:0.3s; }
-    .flags img:hover { transform:scale(1.2) rotate(5deg); box-shadow:0 5px 20px rgba(255,255,255,0.7); }
-    #musicControl { position:absolute; top:20px; right:20px; background:rgba(0,0,0,0.6); border:2px solid white; border-radius:50%; width:50px; height:50px; font-size:22px; color:white; cursor:pointer; display:flex; align-items:center; justify-content:center;}
-    /* صفحة هارفرد */
-    #harvard { display:none; padding:20px; }
-    header { text-align:center; padding:20px; background:#A51C30; color:white; border-radius:10px; }
-    nav { text-align:center; margin:15px 0; }
-    nav button { margin:5px; padding:8px 15px; border:none; border-radius:6px; cursor:pointer; font-weight:bold; background:#eee; }
-    nav button:hover { background:#ccc; }
-    .section { padding:20px; margin:20px auto; max-width:900px; border-radius:10px; background:#f9f9f9; cursor:pointer; }
-    .dark-mode { background:#222; color:white; }
-    .dark-mode .section { background:#333; }
+    header {
+      background: #A51C30; /* Crimson */
+      color: white;
+      padding: 15px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav {
+      margin: 10px 0;
+    }
+    nav a {
+      margin: 0 10px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #FFD700; /* ذهبي عند التمرير */
+    }
+    section {
+      padding: 40px;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .banner {
+      background: url("https://upload.wikimedia.org/wikipedia/commons/2/29/Harvard_University_Widener_Library.JPG") no-repeat center;
+      background-size: cover;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2em;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px black;
+    }
+    .card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px;
+      display: inline-block;
+      width: 250px;
+      vertical-align: top;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+    iframe {
+      width: 80%;
+      height: 400px;
+      border-radius: 15px;
+      border: 4px solid #A51C30;
+    }
+    button {
+      padding: 10px 20px;
+      background: #A51C30;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-top: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background: #800000;
+    }
+    input, textarea {
+      width: 60%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    textarea {
+      height: 100px;
+    }
+
+    /* أنيميشن */
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
   </style>
 </head>
 <body>
-  <!-- صفحة الترحيب -->
-  <section id="landing">
-    <div class="landing-box">
-      <h1>🌍 اختر اللغة | Choose Language</h1>
-      <div class="flags">
-        <a href="#" onclick="openHarvard('ar')"><img src="https://flagcdn.com/w40/sa.png"><br>العربية</a>
-        <a href="#" onclick="openHarvard('en')"><img src="https://flagcdn.com/w40/gb.png"><br>English</a>
-        <a href="#" onclick="openHarvard('fr')"><img src="https://flagcdn.com/w40/fr.png"><br>Français</a>
-        <a href="#" onclick="openHarvard('de')"><img src="https://flagcdn.com/w40/de.png"><br>Deutsch</a>
-        <a href="#" onclick="openHarvard('es')"><img src="https://flagcdn.com/w40/es.png"><br>Español</a>
-      </div>
-    </div>
-    <audio id="bgMusic" autoplay loop>
-      <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c5ba9ce97b.mp3" type="audio/mpeg">
-    </audio>
-    <button id="musicControl">🔊</button>
-  </section>
 
-  <!-- صفحة هارفرد -->
-  <section id="harvard">
-    <header>
-      <h1 id="uniTitle" data-ar="جامعة هارفرد" data-en="Harvard University" data-fr="Université Harvard" data-de="Harvard Universität" data-es="Universidad de Harvard">
-        جامعة هارفرد
-      </h1>
-      <p id="studentInfo" data-ar="عمل الطالبة فجر أحمد النجادي - الصف العاشر - مدرسة البابة بنت الحارث"
-         data-en="By student Fajr Ahmed Al-Najadi - Grade 10 - Al-Babah bint Al-Harith School"
-         data-fr="Par l'étudiante Fajr Ahmed Al-Najadi - 10e année - École Al-Babah bint Al-Harith"
-         data-de="Von Schülerin Fajr Ahmed Al-Najadi - 10. Klasse - Schule Al-Babah bint Al-Harith"
-         data-es="Por la estudiante Fajr Ahmed Al-Najadi - Grado 10 - Escuela Al-Babah bint Al-Harith">
-         عمل الطالبة فجر أحمد النجادي - الصف العاشر - مدرسة البابة بنت الحارث
-      </p>
-    </header>
-
+  <header>
+    <h1>جامعة هارفرد</h1>
     <nav>
-      <button onclick="changeLang('ar')">العربية</button>
-      <button onclick="changeLang('en')">English</button>
-      <button onclick="changeLang('fr')">Français</button>
-      <button onclick="changeLang('de')">Deutsch</button>
-      <button onclick="changeLang('es')">Español</button>
-      <button onclick="toggleDarkMode()">🌙</button>
+      <a href="#home">الرئيسية</a>
+      <a href="#about">عن هارفرد</a>
+      <a href="#colleges">الكليات</a>
+      <a href="#life">الحياة الجامعية</a>
+      <a href="#admission">القبول والمنح</a>
+      <a href="#video">فيديو تعريفي</a>
+      <a href="#contact">تواصل معنا</a>
     </nav>
+  </header>
 
-    <div class="section" onclick="alertSection('ar','عن الجامعة','en','About the University','fr','À propos de l\'université','de','Über die Universität','es','Sobre la Universidad')">
-      عن الجامعة
-    </div>
-    <div class="section" onclick="alertSection('ar','الكليات والتخصصات','en','Colleges and Majors','fr','Facultés et spécialisations','de','Fakultäten und Fachrichtungen','es','Facultades y especialidades')">
-      الكليات والتخصصات
-    </div>
-    <div class="section" onclick="alertSection('ar','الحياة الجامعية','en','Campus Life','fr','Vie universitaire','de','Campusleben','es','Vida universitaria')">
-      الحياة الجامعية
-    </div>
-    <div class="section" onclick="alertSection('ar','فيديو تعريفي','en','Introductory Video','fr','Vidéo de présentation','de','Einführungsvideo','es','Vídeo introductorio')">
-      <iframe width="100%" height="315" src="https://www.youtube.com/embed/5Dk1bWMEgkM" frameborder="0" allowfullscreen></iframe>
-    </div>
+  <!-- الصفحة الرئيسية -->
+  <section id="home">
+    <div class="banner">مرحبًا بكم في جامعة هارفرد</div>
   </section>
 
-  <script>
-    const bgMusic = document.getElementById("bgMusic");
-    const musicControl = document.getElementById("musicControl");
+  <!-- عن هارفرد -->
+  <section id="about">
+    <h2>عن جامعة هارفرد</h2>
+    <p>تأسست جامعة هارفرد عام 1636 وهي من أعرق الجامعات في العالم...</p>
+  </section>
 
-    // تشغيل وإيقاف الموسيقى
-    musicControl.addEventListener("click", () => {
-      if(bgMusic.paused){ bgMusic.play(); musicControl.textContent="🔊"; }
-      else { bgMusic.pause(); musicControl.textContent="🔇"; }
-    });
+  <!-- الكليات -->
+  <section id="colleges">
+    <h2>الكليات والتخصصات</h2>
+    <div class="card">كلية الطب</div>
+    <div class="card">كلية القانون</div>
+    <div class="card">كلية الهندسة</div>
+  </section>
 
-    // فتح صفحة هارفرد
-    function openHarvard(lang){
-      document.getElementById("landing").style.display="none";
-      document.getElementById("harvard").style.display="block";
-      changeLang(lang);
-    }
+  <!-- الحياة الجامعية -->
+  <section id="life">
+    <h2>الحياة الجامعية</h2>
+    <p>تتميز جامعة هارفرد بحياة طلابية غنية بالأنشطة...</p>
+  </section>
 
-    // تغيير اللغة
-    function changeLang(lang){
-      document.querySelectorAll("[data-ar]").forEach(el=>{
-        el.innerText=el.getAttribute("data-"+lang);
-      });
-      document.body.dir=(lang==="ar")?"rtl":"ltr";
-    }
+  <!-- القبول والمنح -->
+  <section id="admission">
+    <h2>القبول والمنح</h2>
+    <p>تقدم جامعة هارفرد فرصًا متعددة للمنح الدراسية...</p>
+  </section>
 
-    // الوضع الليلي
-    function toggleDarkMode(){
-      document.body.classList.toggle("dark-mode");
-    }
+  <!-- الفيديو التعريفي -->
+  <section id="video">
+    <h2>فيديو تعريفي بالذكاء الاصطناعي</h2>
+    <iframe src="https://www.youtube.com/embed/_J9KIrUKUjw" 
+      title="فيديو تعريفي عن جامعة هارفرد" allowfullscreen>
+    </iframe>
+    <p>هذا الفيديو يقدمه مساعد افتراضي بالذكاء الاصطناعي للتعريف بجامعة هارفرد.</p>
+    <button onclick="window.location.href='#home'">العودة للرئيسية</button>
+  </section>
 
-    // عرض محتوى الأقسام
-    function alertSection(ar,en,fr,de,es){
-      const langBtns = document.querySelectorAll("nav button");
-      let currentLang = "ar";
-      langBtns.forEach(btn=>{ if(btn.style.backgroundColor==="rgb(204, 204, 204)") currentLang=btn.innerText==="العربية"?"ar":btn.innerText==="English"?"en":btn.innerText==="Français"?"fr":btn.innerText==="Deutsch"?"de":"es"; });
-      if(currentLang==="ar") alert(ar);
-      else if(currentLang==="en") alert(en);
-      else if(currentLang==="fr") alert(fr);
-      else if(currentLang==="de") alert(de);
-      else alert(es);
-    }
-  </script>
+  <!-- تواصل معنا -->
+  <section id="contact">
+    <h2>تواصل معنا</h2>
+    <form>
+      <input type="text" placeholder="اسمك" required><br><br>
+      <input type="email" placeholder="بريدك الإلكتروني" required><br><br>
+      <textarea placeholder="رسالتك" required></textarea><br><br>
+      <button type="submit">إرسال</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>© 2025 جامعة هارفرد - تصميم مخصص</p>
+    <p>عمل الطالبة: <strong>فجر أحمد النجادي</strong> – الصف العاشر – مدرسة البابة بنت الحارث</p>
+  </footer>
+
 </body>
 </html>
